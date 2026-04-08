@@ -66,8 +66,9 @@ jobs:
 
       - name: Pin SDK version via global.json
         run: |
-          $version = "${{ matrix.target-framework }}".Replace("net","") + ".0"
-          "{`"sdk`":{`"version`":`"$version`",`"rollForward`":`"latestPatch`"}}" | Set-Content global.json
+          $major = "${{ matrix.target-framework }}".Replace("net","").Split(".")[0]
+          $version = "$major.0.100"
+          "{`"sdk`":{`"version`":`"$version`",`"rollForward`":`"latestFeature`"}}" | Set-Content global.json
           Get-Content global.json
         shell: pwsh
 
