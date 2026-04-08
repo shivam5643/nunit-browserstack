@@ -59,9 +59,17 @@ jobs:
               console.log('Failed to create check run')
             }
       - name: Setup dotnet
+        id: setup-dotnet
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: ${{ matrix.dotnet }}
+
+      - name: Pin SDK version via global.json
+        run: |
+          $version = "${{ matrix.target-framework }}".Replace("net","") + ".0"
+          "{`"sdk`":{`"version`":`"$version`",`"rollForward`":`"latestPatch`"}}" | Set-Content global.json
+          Get-Content global.json
+        shell: pwsh
 
       - name: Install dependencies
         run: |
