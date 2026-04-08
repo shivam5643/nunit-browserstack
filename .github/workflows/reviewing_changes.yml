@@ -75,13 +75,13 @@ jobs:
       - name: Install dependencies
         run: |
           dotnet --version
-          dotnet build /p:TargetFramework=${{ matrix.target-framework }}
+          dotnet build /p:TargetFrameworks=${{ matrix.target-framework }} /p:TargetFramework=${{ matrix.target-framework }}
 
       - name: Run sample tests
-        run: dotnet test --filter "Category=sample-test" /p:TargetFramework=${{ matrix.target-framework }}
+        run: dotnet test --filter "Category=sample-test" /p:TargetFrameworks=${{ matrix.target-framework }} /p:TargetFramework=${{ matrix.target-framework }}
 
       - name: Run local tests
-        run: dotnet test --filter "Category=sample-local-test" /p:TargetFramework=${{ matrix.target-framework }}
+        run: dotnet test --filter "Category=sample-local-test" /p:TargetFrameworks=${{ matrix.target-framework }} /p:TargetFramework=${{ matrix.target-framework }}
 
       - if: always()
         uses: actions/github-script@98814c53be79b1d30f795b907e553d8679345975
